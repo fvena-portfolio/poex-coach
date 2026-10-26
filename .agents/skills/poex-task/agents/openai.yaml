@@ -1,0 +1,7 @@
+interface:
+  display_name: "POEX Task Workflow"
+  short_description: "Run and resume POEX development tasks"
+  default_prompt: "Use $poex-task to resume the current POEX development task."
+
+policy:
+  allow_implicit_invocation: true
