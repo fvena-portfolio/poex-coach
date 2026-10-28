@@ -15,7 +15,7 @@ No es necesario reiniciar toda la tarea.
 
 ## Requisito ambiguo o contradictorio
 
-No se implementa una interpretación elegida por el agente. Se registran fuentes y consecuencias y se prepara una pregunta para el propietario. La tarea permanece en `IN_PROGRESS` o `BLOCKED`.
+Registrar fuentes, consecuencias y pregunta para el propietario. Una duda abierta no impide por sí sola terminar comprensión, diseño, especificación o planificación. Detener solo las acciones que requieran una respuesta; no implementar una interpretación elegida por el agente. Si la dependencia impide la siguiente acción necesaria, registrar el estado aplicable y su condición de continuación.
 
 ## Cambio de alcance
 
@@ -31,7 +31,7 @@ No se descartan, ocultan, mezclan ni modifican. Si no pueden aislarse con seguri
 
 ## Fallos y evidencia incompleta
 
-Una prueba fallida, comprobación omitida o resultado no reproducible deja la puerta en `IN_PROGRESS`. Se distingue entre defecto nuevo, fallo previo, entorno, prueba inestable, dependencia externa y ausencia de evidencia. Para diagnósticos difíciles se utiliza `$mattpocock-skills:diagnosing-bugs`.
+Una prueba fallida, comprobación omitida o resultado no reproducible deja la puerta en `IN_PROGRESS`. Se distingue entre defecto nuevo, fallo previo, entorno, prueba inestable, dependencia externa y ausencia de evidencia. Para diagnósticos difíciles el coach prepara un encargo con `$mattpocock-skills:diagnosing-bugs` según [encargos](assignments.md).
 
 ## Imposibilidad de reproducir
 

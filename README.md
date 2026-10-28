@@ -75,18 +75,15 @@ Si no indicas una clave y existe un único expediente abierto, el agente lo rean
 
 ### Trabajar con el flujo
 
-El flujo de realización contiene 10 fases, desde la comprensión y definición de la tarea hasta el cierre y aprendizaje. Durante el trabajo:
+El flujo contiene nueve fases: comprender, inicializar, investigar y decidir, especificar, dividir y estimar, implementar y revisar, validar la integración, entregar y seguir, y cerrar y aprender. Francisco elige tras diseño si necesita especificación, tickets directamente o implementación directa. Las fases opcionales omitidas quedan registradas como `SKIPPED`.
 
-1. El agente carga sólo la fase actual y las referencias condicionales necesarias.
-2. Propone una sola acción, pregunta o decisión verificable.
-3. Francisco ejecuta o autoriza la acción y aporta la evidencia necesaria.
-4. El agente actualiza el estado usando `PENDING`, `IN_PROGRESS`, `WAITING`, `BLOCKED`, `PAUSED` o `DONE`.
-5. El agente actualiza automáticamente el expediente, verifica la escritura e informa después de forma compacta.
-6. Sólo avanza de fase cuando todos sus criterios están superados y el estado evaluado ha quedado registrado.
+El coach prepara prompts con la invocación explícita de las skills, objetivo, entradas, workspaces, permisos y criterios. Francisco los envía a una sesión ejecutora nueva o a la anterior indicada. Investigación, especificación y tickets conservan la misma sesión cuando sea viable. La implementación directa continúa en esa conversación; cada ticket de implementación comienza en una nueva.
 
-Tareas, fases y pasos comparten el mismo vocabulario de estado. Una fase sólo avanza desde `DONE`. El estado local no cambia el estado oficial de Jira.
+La sesión ejecutora devuelve resultados y evidencias y lee TASK.md sin modificarlo. En diseño, Francisco confirma la finalización y comunica la siguiente fase; el coach registra esa procedencia sin atribuirse la revisión de otra conversación. En las fases con artefactos o ejecución, el coach contrasta resultados accesibles y criterios antes de actualizar el expediente.
 
-El expediente registra el inicio y fin de la tarea, de cada fase y de cada paso o tarea verificable. También conserva el progreso de cada fase y las reaperturas sin sobrescribir su historia.
+Cada tarea registra sus worktrees por repositorio. Una sesión nueva verifica ruta, identidad Git, rama o commit y trabajo pendiente antes de continuar. Distintas tareas pueden utilizar directorios separados; un workspace mantiene un solo escritor participante. La comprobación detecta discrepancias, pero no constituye un bloqueo del sistema operativo frente a programas externos.
+
+Tareas, fases y encargos usan `PENDING`, `IN_PROGRESS`, `WAITING`, `BLOCKED`, `PAUSED` y `DONE`. El estado local no cambia Jira. Las fases opcionales pueden quedar `SKIPPED` por decisión de Francisco. El expediente conserva fechas de fases, unidades, reaperturas, encargos y evidencia sin sustituir los artefactos del trabajo. La tabla de tickets aparece solo si se generaron y es su única fuente de progreso; los archivos conservan requisitos y dependencias. Las preguntas abiertas se mantienen en una lista común y se retiran al resolverse.
 
 ### Autorizaciones y sistemas externos
 

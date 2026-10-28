@@ -7,7 +7,7 @@ Toda tarea debe demostrar:
 1. fuente oficial y prioridad;
 2. comprensión personal del problema;
 3. conocimiento suficiente del sistema actual;
-4. resolución de las decisiones materiales;
+4. decisiones confirmadas diferenciadas de preguntas abiertas; resolver las necesarias antes de ejecutar acciones dependientes;
 5. comportamiento esperado y validación definidos;
 6. preparación segura de los repositorios;
 7. implementación incremental;
@@ -26,8 +26,8 @@ Se utiliza cuando el comportamiento es conocido, el cambio es localizado y rever
 Aplicación:
 
 - contexto y modelo breves;
-- especificación compacta;
-- normalmente un solo ticket;
+- comportamiento y criterios autosuficientes; especificación y ticket cuando la ruta los requiera;
+- una unidad acotada de implementación;
 - pruebas focalizadas en seams existentes;
 - comprobaciones obligatorias del repositorio;
 - artefactos mínimos.
@@ -41,7 +41,7 @@ Se aplica, por ejemplo, cuando existen varios módulos, cambios coordinados pero
 Aplicación:
 
 - investigación completa de las capas afectadas;
-- especificación y tickets explícitos;
+- alcance, decisiones y criterios explícitos en los artefactos de la ruta elegida; recomendar especificación y tickets cuando aporten continuidad;
 - matriz de trazabilidad;
 - pruebas por comportamiento;
 - revisión cross-stack proporcional;
@@ -83,9 +83,9 @@ Una señal elevada obliga a controlar el riesgo que representa. No obliga a prod
 
 ## Clasificación
 
-`PENDING` indica que la tarea aún no ha sido clasificada. No es un nivel de garantía y solo puede mantenerse hasta completar la fase 2.
+`PENDING` indica que la tarea aún no ha sido clasificada. No es un nivel de garantía y solo puede mantenerse hasta completar `design`.
 
-La clasificación inicial se realiza al final de la fase 2, después de investigar el sistema actual y sus riesgos, y se registra en `TASK.md`. Después de la confirmación de Francisco, sustituye `PENDING` por `BASIC`, `STANDARD` o `HIGH`.
+La clasificación inicial se realiza al final de `design`, después de investigar el sistema actual y sus riesgos, y se registra en `TASK.md`. Después de la confirmación de Francisco, sustituye `PENDING` por `BASIC`, `STANDARD` o `HIGH`.
 
 `assurance_level` expresa cuánto análisis, validación y evidencia requiere la tarea. No estima esfuerzo ni story points.
 

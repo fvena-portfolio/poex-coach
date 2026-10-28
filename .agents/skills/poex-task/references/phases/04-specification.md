@@ -1,64 +1,26 @@
-# Fase 4. Especificación
+# Fase 4. Especificar
 
-**Objetivo:** convertir lo aprendido en una especificación autosuficiente, comprobable y defendible.
+**Entrada:** diseño `DONE` y elección de Francisco de continuar con `specify`. Es una fase opcional.
 
-**Entrada:** fases 1–3 superadas y decisiones materiales resueltas.
+**Encargo:** `$mattpocock-skills:to-spec`. El prompt indica expresamente que se pega en la misma conversación de `grill-with-docs`. Sintetizar lo trabajado, enlazando Jira y las fuentes necesarias; distinguir decisiones confirmadas de cuestiones abiertas, sin inventar respuestas.
 
-**Acciones:**
+## Resultado y verificación
 
-1. Pedir a Francisco que invoque `$mattpocock-skills:to-spec` como síntesis, no como una nueva entrevista.
-2. Volver a la fase correspondiente si la redacción descubre una carencia material.
-3. Describir el problema y la solución mediante comportamiento observable.
-4. Incluir historias para actores, flujo principal, estados, errores, permisos, límites, compatibilidad y recuperación aplicables.
-5. Convertir los criterios oficiales en condiciones inequívocas, observables y trazables.
-6. Documentar decisiones ya acordadas sobre responsabilidades, contratos, datos, autorización, errores y despliegue.
-7. Evitar rutas de archivos y código volátil, salvo una decisión precisa procedente de un prototipo.
-8. Definir las decisiones de prueba y los seams antes de dividir el trabajo.
-9. Preferir seams públicos, estables y existentes.
-10. Incluir alcance, fuera de alcance, supuestos, dependencias, riesgos y preguntas no bloqueantes.
-11. Mantener coherencia entre experiencia de usuario, frontend, API, backend, datos, autorización, QA, observabilidad y despliegue.
-12. Comprobar:
+1. La propuesta conserva la estructura de la skill y permite observar comportamiento, actores, casos alternativos, errores, permisos, límites, compatibilidad y fuera de alcance relevantes.
+2. Los criterios oficiales se relacionan con comportamiento verificable y decisiones ya acordadas. No se añaden requisitos durante la redacción.
+3. Los puntos públicos donde probar se acuerdan con Francisco; se explica qué detecta y qué deja fuera cada uno. Preferir los existentes cuando sean adecuados.
+4. Contrastar responsabilidades y contratos entre repositorios, riesgos, dependencias y pruebas. Evitar rutas y código volátiles salvo una decisión precisa surgida de un prototipo.
+5. Francisco revisa la propuesta. La revisión del documento es el punto de control; no exigir una explicación adicional de todo el diseño como condición de cierre. Las preguntas pendientes no obligan por sí solas a volver a `design`; identificar qué partes de la especificación siguen condicionadas.
+6. Mostrar el contenido exacto antes de escribir `.scratch/<slug>/spec.md`. Con aprobación, preparar la continuación de escritura en la misma sesión; verificar el archivo y su huella al retorno. No invocar una segunda síntesis si solo falta guardar el texto aprobado.
+7. Preparar cualquier cambio necesario en Jira para su aplicación manual.
 
-```text
-fuente oficial
-      ↓
-comportamiento
-      ↓
-criterio
-      ↓
-seam y evidencia previstos
-```
+## Actualización de TASK.md
 
-13. Pedir a Francisco que explique problema, comportamiento, alcance, validación y riesgos.
-14. Mostrar la especificación exacta antes de escribirla.
-15. Con aprobación, pedir a Francisco que invoque `$mattpocock-skills:to-spec` y crear `.scratch/<slug>/spec.md`.
-16. Si Jira necesita actualizarse, preparar el cambio exacto para que Francisco lo aplique manualmente.
+- Estado, inicio y fin de `specify` y ciclo del encargo.
+- Enlace a `.scratch/<slug>/spec.md` una vez guardado y comprobado, con su versión o huella verificada.
+- Preguntas nuevas en la lista común y retirada de las resueltas.
+- Mantener decisiones y contenido en la especificación; el expediente solo la referencia.
 
-Estructura mínima:
+**DONE:** Francisco ha revisado y aprobado la especificación; el archivo está guardado y el coach ha comprobado su existencia y correspondencia con lo aprobado. Las cuestiones abiertas están identificadas y no impiden por sí solas terminar esta fase.
 
-```markdown
-## Problema
-## Solución
-## Historias de usuario
-## Criterios de aceptación
-## Decisiones de implementación
-## Decisiones de prueba
-## Contratos y compatibilidad
-## Riesgos y dependencias
-## Fuera de alcance
-## Notas y preguntas no bloqueantes
-```
-
-**Resultado:** especificación aprobada, coherente y comprobable.
-
-**Evidencia:** `.scratch/<slug>/spec.md`, fuentes, trazabilidad, seams aprobados y explicación de Francisco.
-
-**Puerta de salida:**
-
-- `DONE`: la especificación es autosuficiente, comprobable y defendible.
-- `IN_PROGRESS`: contiene ambigüedades, criterios débiles o contratos inconsistentes.
-- `WAITING`: una decisión o fuente externa ya se ha solicitado y están identificados el responsable y la condición de reanudación.
-- `BLOCKED`: falta formular, autorizar o dirigir una solicitud imprescindible, o no existe una vía conocida para obtener la decisión o fuente requerida.
-
-**Siguiente paso:** fase 5.
-
+**Siguiente:** cuando Francisco confirme que quiere continuar con el desglose, preparar `plan` en la misma conversación. Otra ruta requiere su decisión explícita y registro de las omisiones.

@@ -1,54 +1,26 @@
-# Fase 5. Plan, tickets, validación y estimación
+# Fase 5. Dividir y estimar
 
-**Objetivo:** convertir la especificación en tickets verticales, trazables, ordenados y estimables.
+**Entrada:** especificación `DONE`, o diseño `DONE` y elección de Francisco de pasar directamente a `plan`.
 
-**Entrada:** especificación aprobada, criterios comprobables y seams definidos.
+**Encargo:** `$mattpocock-skills:to-tickets` en la misma conversación de diseño y, si se realizó, especificación. El prompt indica esta continuidad y la ruta absoluta del tracker local. Enlaza la especificación verificada cuando exista; si se omitió, utiliza lo acordado en la conversación de diseño.
 
-**Acciones:**
+## Resultado y verificación
 
-1. Pedir a Francisco que invoque `$mattpocock-skills:to-tickets` sobre la especificación aprobada.
-2. Crear tracer bullets verticales. Cada ticket debe entregar comportamiento end-to-end, ser comprobable, mantener el sistema válido y caber en un contexto nuevo.
-3. Evitar divisiones horizontales por frontend, backend o pruebas sin valor independiente.
-4. Para varios repositorios, definir responsabilidades, contratos, orden compatible y evidencia conjunta.
-5. Crear prefactoring separado solo si reduce un riesgo concreto y puede validarse.
-6. Para migraciones amplias, usar `expandir → migrar → contraer`; declarar una rama de integración si los estados intermedios no pueden aterrizar por separado.
-7. Definir por ticket comportamiento, criterios, seams, repositorios, contratos, evidencia, riesgos, bloqueadores y estado.
-8. Construir el grafo de dependencias y su frontera disponible.
-9. Comprobar:
+1. Proponer tickets que entreguen una porción de comportamiento completa a través de las capas necesarias y puedan comprobarse por separado. Cada ticket debe caber en un contexto nuevo.
+2. Declarar criterios, repositorios implicados, contratos, pruebas y bloqueadores reales. El trabajo entre repositorios sigue siendo una unidad de comportamiento.
+3. Validar con Francisco la cobertura de la especificación o del alcance acordado en diseño, la granularidad y el grafo. El prefactoring y expandir–migrar–contraer se justifican por el riesgo concreto; no son pasos obligatorios.
+4. Acordar cómo se integrarán los tickets. Por defecto, cada ticket recorre `implement → validate → deliver` antes de liberar sus dependientes. Una rama de integración requiere una decisión expresa sobre qué evidencia permite liberar cada dependencia.
+5. Mostrar los archivos exactos antes de escribir `.scratch/<slug>/issues/<NN>-<slug>.md`. Tras la aprobación y la continuación ejecutora, verificar un archivo por ticket y las relaciones entre ellos. No pasar por triage los tickets ya especificados.
+6. Estimar después de acordar el desglose cuando sea necesario para un compromiso: rango, confianza, supuestos, riesgos y exclusiones. Separar esfuerzo de espera, revisión y despliegue. Francisco confirma los compromisos; el agente no inventa duraciones. Si no hace falta estimar, esta actividad no condiciona el cierre de la fase.
+7. Crear `## Tickets` en TASK.md con la tabla definida en [trazabilidad](../traceability.md). Es la única fuente del progreso de los tickets; los archivos conservan contenido y dependencias. Las etiquetas del plugin no demuestran implementación ni integración. Las dudas pendientes no impiden terminar planificación; cada ticket identifica las cuestiones de las que depende su ejecución.
 
-```text
-criterio
-   ↓
-ticket
-   ↓
-implementación
-   ↓
-prueba
-   ↓
-evidencia
-```
+## Actualización de TASK.md
 
-10. Aplicar la lente cross-stack y comprobar que no falten criterios ni existan tickets sin respaldo.
-11. Validar con Francisco granularidad, bloqueadores y orden.
-12. Si una duda solo puede resolverse ejecutando código, realizar un prototipo acotado mediante handoff y volver a aprobar la especificación.
-13. Estimar después de aprobar el desglose.
-14. Registrar rango, confianza, supuestos, riesgos, dependencias y trabajo excluido.
-15. Separar esfuerzo de implementación, espera, revisión y despliegue.
-16. Mostrar el desglose exacto antes de pedir la invocación de `$mattpocock-skills:to-tickets`.
-17. Con aprobación, crear `.scratch/<slug>/issues/<NN>-<slug>.md`.
-18. Ordenar por dependencia y marcar como disponibles solo los tickets de la frontera.
-19. Preparar para Francisco cualquier actualización manual necesaria en Jira.
+- Estado, fechas y encargo de `plan`.
+- Tabla `ID | Tarea | Estado | Inicio | Fin`: título enlazado al archivo, estado inicial `PENDING` y fechas vacías hasta la ejecución.
+- Preguntas nuevas y retirada de las resueltas. Registrar la condición de integración acordada y, cuando exista, estimación confirmada con fecha y supuestos relevantes.
+- Si se omite `plan`, no crear la sección de tickets.
 
-**Resultado:** tickets autosuficientes, grafo coherente, cobertura completa y estimación sustentada.
+**DONE:** desglose aprobado por Francisco, cobertura y archivos comprobados, dependencias identificadas, integración acordada y tabla de seguimiento creada. Una estimación solo es necesaria cuando exista un compromiso que la requiera.
 
-**Evidencia:** archivos locales, dependencias, matriz de trazabilidad, revisión cross-stack y estimaciones.
-
-**Puerta de salida:**
-
-- `DONE`: los tickets cubren la especificación, sus dependencias son correctas y la estimación tiene fundamento.
-- `IN_PROGRESS`: existen cortes incorrectos, criterios sin cobertura, tickets grandes o estimaciones débiles.
-- `WAITING`: una decisión, un prototipo o un compromiso externo ya se ha solicitado y están identificados el responsable y la condición de reanudación.
-- `BLOCKED`: falta formular, autorizar o dirigir una solicitud necesaria, o no existe una vía conocida para obtener la decisión, investigación, prototipo o compromiso requerido.
-
-**Siguiente paso:** fase 6.
-
+**Siguiente:** seleccionar con Francisco un ticket disponible y preparar `implement` en una sesión nueva.

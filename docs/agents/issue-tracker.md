@@ -2,6 +2,14 @@
 
 Issues and specs for this repo live as markdown files in `.scratch/`.
 
+## POEX Coach boundary
+
+This tracker belongs to POEX Coach, even when an implementation session runs in another repository. Pass its absolute path and the relevant local spec/ticket paths in each assignment. Jira remains the official source for scope and issue status.
+
+Only the coach writes `.scratch/<feature-slug>/TASK.md`. Executor sessions read it and return evidence to the coach. Other local files require the exact proposed change and Francisco's approval before writing, as defined by AGENTS.md. “Publish to the issue tracker” names a destination; it does not grant write permission.
+
+Plugin triage labels describe readiness. The coach tracks ticket execution in the `## Tickets` table of TASK.md using the canonical POEX states; `ready-for-agent` does not mean implemented or integrated. Consult the assignment's integration condition before considering a blocking ticket complete. Ticket files own scope, criteria and dependencies; do not duplicate execution states in their content or in TASK.md YAML. If the route omits tickets, do not create the table or ticket files.
+
 ## Conventions
 
 - One feature per directory: `.scratch/<feature-slug>/`

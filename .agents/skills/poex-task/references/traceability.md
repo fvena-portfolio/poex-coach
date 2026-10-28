@@ -1,89 +1,102 @@
-# Trazabilidad temporal y progreso
-
-Lee esta referencia al crear, finalizar o reabrir una tarea o fase.
+# Estado, evidencia y continuidad
 
 ## Instantánea YAML
 
-El YAML de `TASK.md` es la fuente de verdad para el estado actual legible por máquinas. Contiene:
+El coach es el único escritor de TASK.md. Actualiza hechos y decisiones confirmadas, verifica la escritura e informa de forma compacta. Conserva las fechas reales en ISO 8601 con zona Europe/Madrid; usa `NOT_RECORDED` cuando una fecha histórica sea desconocida.
 
 | Campo | Contenido |
 |---|---|
-| `key` | Clave oficial de la tarea. |
-| `title` | Título oficial vigente. |
-| `jira_url` | URL de la tarea oficial para `workflow: implementation`. |
-| `workflow` | Workflow que controla el expediente. |
-| `state` | Estado local canónico de la tarea. |
-| `assurance_level` | Nivel de garantía confirmado o `PENDING`. |
-| `current_phase` | Clave semántica de la fase actual definida en el enrutamiento de `SKILL.md`. |
-| `current_step` | Key del paso interno o de la tarea activa; `null` cuando la fase no los diferencie. |
-| `started_at` | Inicio real de la tarea. |
-| `updated_at` | Momento de la última actualización verificada del expediente. |
-| `completed_at` | Fin real de la tarea o `null` mientras siga abierta. |
-| `components` | Nombres exactos de los componentes registrados en Jira. |
+| `workflow_version` | `3`: comprensión e inicialización separadas, fases omitidas `SKIPPED` y progreso de tickets en una única tabla. |
+| `key`, `title`, `jira_url` | Identidad oficial verificada; `workflow: implementation`. |
+| `state` | Estado canónico de la fase activa y, por tanto, de la tarea. |
+| `assurance_level` | Nivel confirmado o `PENDING` hasta terminar diseño. |
+| `phases` | Keys de la ruta acordada, en orden. Inicialmente las nueve del enrutamiento; retirar de esta ruta las fases omitidas, conservándolas en `## Progreso`. |
+| `current_phase` | Fase activa por key, no por número. |
+| `current_step` | Paso de comprensión o inicialización, ticket activo o acción verificable de la fase; `null` si no se necesita. |
+| `started_at`, `updated_at`, `completed_at` | Inicio real, última actualización y cierre; `completed_at: null` hasta terminar. |
+| `components` | Valores exactos del campo oficial de Jira; `[]` si Jira devolvió lista vacía. |
+| `workspaces` | Asignaciones según [workspaces](workspaces.md); `[]` hasta prepararlas. |
+| `active_assignment` | Encargo abierto o `null`, según el contrato siguiente. |
 
-Usa cadenas ISO 8601 entre comillas para las fechas. Usa `components: []` mientras Jira no haya devuelto ningún componente. No traduzcas, normalices ni infieras sus valores.
+Las etiquetas de triaje como `ready-for-agent` no son estados canónicos. Las dependencias se liberan con la condición de integración acordada en planificación; completar la fase de implementación no marca automáticamente el ticket `DONE`.
 
-Cada workflow conserva únicamente la URL de su fuente principal. `implementation` usa `jira_url`. Un workflow de revisión usa `pr_url` en su propia plantilla. No incluyas campos de fuente vacíos que pertenezcan a otro workflow.
+## Encargo abierto
 
-Cuando la fase tenga varios pasos internos, `current_step` contiene una key corta en inglés definida por esa fase. Cuando organice el trabajo mediante tareas, contiene la clave estable de la tarea activa. Cuando la fase no diferencie pasos ni tareas, usa `current_step: null`.
+`active_assignment` contiene:
 
-Conserva el título y las fechas de inicio y fin únicamente en el YAML. El cuerpo comienza en `## Progreso`.
+- `id`: identificador único en el expediente, por ejemplo `POE-8958-design-001`; no reutilizarlo para otro alcance.
+- `phase`, `unit`: key de fase y ticket o unidad (`null` si no aplica).
+- `skill`, `skill_version`: identificador explícito y versión comprobada.
+- `state`: `PENDING` al preparar; `IN_PROGRESS` al confirmar inicio y durante verificación; los demás estados canónicos según evidencia.
+- `session`: indicación de sesión nueva o referencia a la anterior; nombre/enlace/identificador si se conoce, nunca inventado.
+- `workspace_ids`: asignaciones incluidas en el encargo.
+- `inputs`: rutas/URLs y sus SHA o huellas disponibles; incluir TASK.md como referencia, pero no fijar su huella porque el coach actualiza el estado durante la espera.
+- `authorized_actions`: alcance exacto y procedencia de las autorizaciones confirmadas. Vacío significa solo lectura y propuesta en el chat. Las acciones pendientes figuran como pendientes en el prompt.
+- `created_at`, `started_at`, `returned_at`: fechas reales; las dos últimas, `null` mientras el evento no se confirme.
 
-`current_phase` usa una clave semántica. El número de fase y el progreso `<fase>/10` se derivan del enrutamiento; no se almacenan en el YAML.
+`## Encargo actual` conserva el prompt exacto. La sesión ejecutora puede tener limitado el acceso a los workspaces o herramientas; registrar la asignación no amplía los permisos del entorno.
 
-Mantén la instantánea y el cuerpo coherentes en una sola actualización:
+Al retornar, la fase vuelve de `WAITING` a `IN_PROGRESS` para verificar. El encargo solo queda `DONE` tras contrastar todos sus criterios. Archiva su resultado y evidencias antes de retirarlo. Una continuación conserva referencia al encargo anterior y usa un nuevo id. No marques como realizado un encargo detenido ni pierdas su resultado parcial.
 
-- `started_at` se establece al crear el expediente y no cambia;
-- `updated_at` cambia en cada escritura verificada;
-- `current_phase` cambia al iniciar o reabrir una fase;
-- `current_step` cambia al iniciar otro paso o tarea dentro de la fase;
-- `components` refleja la última respuesta oficial comprobada de Jira;
-- `completed_at` permanece en `null` hasta que la tarea termina;
-- al cerrar la tarea, `state`, `current_step`, `completed_at` y `updated_at` se actualizan juntos.
+## Cuerpo del expediente
 
-## Marcas temporales
+- `## Resumen`: objetivo breve.
+- `## Progreso`: tabla de ejecuciones de fases y fases omitidas.
+- `## Artefactos`: enlaces a documentos producidos y comprobados, con versión o huella cuando corresponda; solo cuando existan.
+- `## Tickets`: tabla única de progreso de tickets; solo cuando se hayan generado archivos.
+- `## Decisiones y continuidad`: decisiones confirmadas, razones relevantes, ruta acordada, bloqueos/seguimientos y siguiente acción; solo cuando haya contenido.
+- `## Resultados y evidencia`: referencias verificadas por fase, ticket, workspace o encargo, con los límites de la comprobación; solo cuando haya contenido.
+- `## Preguntas pendientes`: preguntas técnicas y externas en una lista común para facilitar consultas agrupadas. Conservar texto y contexto mínimos, destinatario o fase prevista si se conocen y acción dependiente cuando exista. Retirar al resolverse; las respuestas relevantes pertenecen al artefacto de trabajo correspondiente. No inventar responsables ni respuestas.
+- `## Encargo actual`: únicamente mientras exista encargo abierto.
 
-Usa la hora real del sistema en formato ISO 8601 y con zona horaria, por ejemplo `2026-10-27T16:35:42+01:00`.
+Conserva otras secciones históricas si contienen evidencia que aún no se ha conciliado. El expediente enlaza los artefactos; no duplica especificaciones ni tickets. Comprensión conserva solo progreso y preguntas; inicialización añade el registro operativo de workspaces. No crear informes narrativos ni evaluaciones personales por defecto.
 
-Registra:
+## Tickets
 
-- inicio y fin de la tarea en `started_at` y `completed_at`;
-- inicio y fin de cada fase;
-- reaperturas de una fase.
+Crear esta sección únicamente cuando `plan` haya producido archivos aprobados y comprobados:
 
-La tarea comienza cuando su expediente está creado y se inicia la primera fase. La fecha de creación o asignación en Jira no demuestra el inicio del trabajo.
+| ID | Tarea | Estado | Inicio | Fin |
+|---|---|---|---|---|
+| `<id>` | `<título enlazado a la ruta absoluta del archivo>` | `PENDING` | — | — |
 
-Una fase termina cuando su puerta está evaluada y el resultado está registrado. Usa `NOT_RECORDED` cuando una transición anterior carezca de una hora comprobable; no la estimes.
+La tabla es la única fuente del progreso de los tickets: no duplicar sus estados en YAML ni en los archivos. Los archivos conservan comportamiento, criterios y dependencias. `ready-for-agent` es una etiqueta de preparación, no un estado de ejecución.
 
-## Registro
+- Registrar inicio cuando Francisco confirme la ejecución real, no al crear el ticket o preparar su prompt.
+- Usar los estados canónicos según la situación del ticket; una espera o bloqueo incluye responsable y condición de continuación.
+- `implement: DONE` o `validate: DONE` no cierran el ticket. Registrar `DONE` y fin cuando satisfaga criterios y condición de integración acordada.
+- Ante reapertura, conservar el cierre anterior y su motivo en el historial; actualizar la fila a su estado actual y dejar `Fin` vacío hasta el nuevo cierre. Mantener el inicio original. Las ejecuciones de fases distinguen cada ciclo.
+- Consultar las dependencias en los archivos antes de proponer el siguiente ticket; completarlas se evalúa según la condición de integración acordada.
+- Sin tickets, omitir la sección y registrar la unidad con `—` en el progreso de las fases.
 
-La sección `## Progreso` contiene una única tabla:
+## Preguntas y criterios pendientes
 
-| Fase | Estado | Inicio | Fin |
-|---|---|---|---|
+Una pregunta abierta no bloquea por sí sola una fase ni obliga a reabrir la anterior. Registrar qué acción necesita su respuesta y realizar el trabajo independiente. Un criterio de salida de la fase no satisfecho, una validación necesaria pendiente o una operación imprescindible sin autorización sí mantienen abierto el resultado que depende de ellos. La omisión de una fase no resuelve esas dependencias.
 
-Al crear el expediente, añade las diez keys del enrutamiento. `understand` comienza en `IN_PROGRESS`; las demás fases comienzan en `PENDING`.
+## Progreso y transiciones
 
-Usa únicamente la key de la fase en la primera columna. El nombre y la posición se obtienen del enrutamiento de `SKILL.md`.
+La tabla contiene `Fase | Unidad | Estado | Inicio | Fin`. Inicializa las fases de `phases`: `understand` en `IN_PROGRESS`, el resto en `PENDING`, con unidad `—`. La unidad identifica el ticket cuando se repiten implementación, validación y entrega.
 
-La última fila cuya key coincida con `current_phase` representa la ejecución actual. Su estado debe coincidir con `state` en el YAML.
+La última fila de `current_phase` representa su ejecución actual y coincide con `state`. Al volver a una fase terminada, añade otra fila con unidad y motivo de reapertura; preserva su historia. Los pasos internos se identifican solo por `current_step`.
 
-Los pasos internos no se registran en esta tabla. `current_step` conserva únicamente el paso o tarea activa; la referencia de la fase determina la siguiente acción.
+- Al cambiar de paso, actualiza `current_step` y `updated_at`.
+- Al cambiar de estado, actualiza juntos YAML y fila activa. `WAITING` requiere responsable y condición de reanudación registrados.
+- Al completar una fase e iniciar otra, registra en una escritura su `DONE` y fin, el inicio de la siguiente, `current_phase`, `current_step`, `state` y `updated_at`.
+- Cuando Francisco omita una fase opcional, retirarla de `phases` y mantener su fila en `## Progreso` como `SKIPPED`, con inicio y fin `—`. Registrar fecha, motivo y autor de la decisión en continuidad. `SKIPPED` solo se usa para fases omitidas, nunca como estado general de la tarea, ticket o encargo.
+- Conservar cualquier ejecución anterior si cambia la ruta; añadir una fila `SKIPPED` para reflejar la nueva decisión sin reescribir fechas ni resultados anteriores. Si se reincorpora una fase, añadirla a `phases` y abrir una nueva ejecución con fechas reales.
+- Registrar la finalización de `design` con Francisco como fuente de confirmación; el coach no atribuye una revisión propia al chat ejecutor que no ha consultado.
+- Conservar causa, inicio y resolución de esperas o bloqueos relevantes al cambiar el estado, para que la actualización de la instantánea no borre su evolución.
+- Al cerrar, registra juntos `close: DONE`, `state: DONE`, `completed_at`, `current_step: null` y `updated_at`. No debe quedar un encargo abierto.
 
-Conserva resultados y evidencia en sus secciones propias, no en la tabla de progreso.
+No interpretes el tiempo entre inicio y fin como esfuerzo dedicado sin confirmación. El número de fase se deriva del enrutamiento; no almacenes un contador como `6/8`.
 
-No sobrescribas una fase terminada. Si debe reabrirse, añade al final una nueva fila con la misma key, estado `IN_PROGRESS`, su nueva fecha de inicio y fin vacío. Registra el motivo de la reapertura en la sección correspondiente.
+## Expedientes anteriores
 
-El progreso `<fase>/10` se deriva de `current_phase` y del enrutamiento. No se almacena en `TASK.md`.
+Al detectar una versión ausente o anterior, conserva la identidad, historia, decisiones y evidencia. Reconstruye campos solo desde fuentes comprobadas; una contradicción material se consulta con Francisco.
 
-## Transiciones
+Para versión 2, separar conceptualmente la comprensión de `understand` y su preparación de repositorios, que ahora corresponde a `initialize`; conservar la fila histórica y comprobar la preparación vigente antes de completar la nueva fase. Trasladar entradas de `tickets` del YAML a `## Tickets` conservando ids, enlaces y estados. Usar `NOT_RECORDED` para fechas desconocidas. Contrastar sus dependencias con los archivos; conservar el registro anterior hasta conciliar las diferencias, sin modificar los tickets automáticamente.
 
-Reduce las escrituras sin perder trazabilidad:
+Para versiones anteriores, `research` y `decide` corresponden a `design`; `prepare` corresponde a la preparación de `initialize`. `specify`, `plan`, `implement`, `validate`, `deliver` y `close` conservan su significado con las nuevas puertas. La historia original permanece identificada.
 
-- al crear el expediente, registra juntos `started_at`, `updated_at`, `current_phase: understand` y la tabla inicial;
-- al cambiar de paso o tarea dentro de una fase, actualiza juntos `current_step` y `updated_at`;
-- cuando cambie el estado de la fase activa, actualiza juntos su última fila, `state` y `updated_at`;
-- al cambiar de fase, registra juntos el fin y estado `DONE` de la fila actual, el inicio y estado `IN_PROGRESS` de la siguiente, `current_phase`, el primer `current_step` aplicable o `null`, `state` y `updated_at`;
-- al cerrar, registra juntos el fin y estado `DONE` de `close`, `state: DONE`, `current_step: null`, `completed_at` y `updated_at`.
+No conviertas automáticamente una fase vieja en `DONE` bajo requisitos nuevos. Mantén los registros anteriores como historia identificada; añade una ejecución nueva de la fase que corresponda y comprueba sus criterios. Un resultado anterior válido se reutiliza por referencia, no se repite por burocracia.
 
-Cada actualización sigue el procedimiento automático de persistencia definido en `SKILL.md`.
+Si el estado Git actual difiere del registro, conserva ambos como observaciones con sus fechas; no reescribas el pasado ni inventes workspaces. Antes de emitir un encargo escritor deben estar resueltas las discrepancias de identidad y registrados los workspaces reales. Las autorizaciones antiguas no se amplían por la migración.

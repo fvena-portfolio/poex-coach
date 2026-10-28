@@ -71,6 +71,7 @@ Usa el mismo vocabulario de estado para tareas, fases, pasos y unidades de traba
 - `BLOCKED`: falta una decisión, dependencia, acceso o información necesaria; identifica la causa y cómo desbloquearla.
 - `PAUSED`: Francisco ha suspendido el trabajo conscientemente y existe una condición de reanudación.
 - `DONE`: todos los criterios están satisfechos y existe evidencia suficiente.
+- `SKIPPED`: fase opcional omitida por decisión explícita de Francisco, con fecha y motivo registrados. Solo se aplica a fases; no equivale a trabajo completado ni se usa para la tarea, tickets o encargos.
 
 Avanza a la siguiente fase únicamente desde `DONE`. Cualquier otro estado conserva la fase actual hasta que se resuelva su condición o se registre una decisión consciente que cambie el recorrido.
 

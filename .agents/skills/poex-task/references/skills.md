@@ -1,71 +1,42 @@
 # Skills, contextos y artefactos
 
-El mapa se ha validado contra las skills de Matt Pocock 1.3.1. Identifícalas siempre como `$mattpocock-skills:<nombre>`. Si cambia la versión instalada, se deben revisar sus instrucciones, identificadores y ubicaciones de salida antes de utilizarlas.
+Mapa contrastado con Matt Pocock 1.3.1. Antes de preparar un encargo, lee la skill instalada y sus recursos necesarios. Si cambia su versión, comprueba instrucciones, invocación, salidas y efectos antes de reutilizar el prompt.
 
-Las skills de terceros no se modifican para adaptarlas a POEX Coach. El flujo se adapta a su comportamiento.
+El coach prepara la invocación explícita; Francisco la envía siguiendo [encargos](assignments.md). Conserva el plugin original. Las skills auxiliares invocables por el agente pueden utilizarse dentro del encargo conforme a sus instrucciones y permisos.
 
-## Mapa principal
+| Fase | Skill principal | Resultado y contexto |
+|---|---|---|
+| `understand` | Flujo propio | Tarea revisada y preguntas abiertas identificadas. |
+| `initialize` | Flujo propio | Workspaces autorizados, preparados y verificados. |
+| `design` | `$mattpocock-skills:grill-with-docs` | Sesión de planificación en POEX Coach; hechos investigados en workspaces y decisiones acordadas. |
+| `specify` | `$mattpocock-skills:to-spec` | Misma sesión; especificación local. |
+| `plan` | `$mattpocock-skills:to-tickets` | Misma sesión; tickets locales con bloqueadores. |
+| `implement` | `$mattpocock-skills:implement` | Sesión nueva por ticket, o la misma de diseño para implementación directa; TDD y revisión con los límites de la fase. |
+| `validate` | Comprobaciones del proyecto | Evidencia conjunta y cobertura cross-stack. |
+| `deliver` | `$mattpocock-skills:pr` | Cuerpo de PR; publicación y seguimiento sujetos a autorización. |
+| `close` | `$mattpocock-skills:retro` cuando aporte valor | Recuperar retrospectiva existente o proponerla en la sesión evaluada; cierre comprobado. |
 
-| Fases | Skill | Contexto | Resultado |
-|---|---|---|---|
-| 1 | Sin skill obligatoria | POEX Coach | Tarea comprendida, recomendaciones sobre Jira presentadas y ramas preparadas |
-| 2–3 | `$mattpocock-skills:domain-modeling` | Raíz de POEX Coach | `GLOSSARY.md` y `docs/adr/` cuando proceda |
-| 3 | `$mattpocock-skills:to-questionnaire` | `.scratch/<slug>/` | `to-questionnaire-<tema>.md` |
-| 2–5 | `$mattpocock-skills:research` | POEX Coach | `.scratch/<slug>/research/<tema>.md` |
-| 2–5 | `$poex-pr-guide`, modo `Task-planning readiness` | POEX Coach y repositorios de trabajo | Preparación, contratos, cobertura, riesgos y validación contrastados |
-| 4 | `$mattpocock-skills:to-spec` | POEX Coach, tracker local | `.scratch/<slug>/spec.md` |
-| 5 | `$mattpocock-skills:to-tickets` | POEX Coach, tracker local | `.scratch/<slug>/issues/<NN>-<slug>.md` |
-| 6 | `$mattpocock-skills:handoff` | Contexto de origen | Archivo temporal del sistema |
-| 7 | `$mattpocock-skills:tdd` | Repositorio de trabajo | Código y pruebas |
-| 8–9 | `$poex-pr-guide`, modos `Full PR review` o `Follow-up revision` | Repositorio o PR | Segunda pasada independiente después de la autorrevisión de Francisco |
-| 9 | `$mattpocock-skills:pr` | Repositorio de trabajo | Cuerpo y publicación autorizada del PR |
-| 10 | `$mattpocock-skills:retro` | POEX Coach y repositorios | Aprendizajes y candidatos de mejora |
+`implement` 1.3.1 pide ejecutar `code-review` antes de hacer commit, pero `code-review` usa `<base>...HEAD`. El encargo adapta explícitamente ese orden: código y pruebas; retorno para un commit autorizado; revisión sobre los commits existentes. Si no se autoriza el commit, devuelve el diff y deja pendiente esa revisión. No presentes la revisión de un HEAD anterior como revisión del trabajo sin commit. Las correcciones posteriores requieren nueva evidencia sobre su contenido final.
 
-La skill `$mattpocock-skills:implement` no forma parte del recorrido estable. Su versión 1.3.1 ejecuta `$mattpocock-skills:code-review` y crea un commit al terminar, acciones que corresponden a la fase 8 y requieren autorizaciones independientes.
+## Artefactos
 
-Usa el identificador completo `$mattpocock-skills:<nombre>` tanto al invocar una skill del paquete como al pedir a Francisco que la invoque. La única excepción de este mapa es `$loop-me`, que está instalada fuera del paquete `mattpocock-skills`.
+El tracker de las skills es el local de POEX Coach: lee `docs/agents/issue-tracker.md` desde su ruta absoluta aunque el cwd sea otro repositorio. Jira conserva el alcance y estado oficiales. Los tickets locales son unidades de implementación, no nuevas subtareas oficiales.
 
-Cuando una skill tenga `disable-model-invocation: true`, pide a Francisco que invoque su identificador exacto en el turno siguiente y espera su respuesta. El coordinador no puede activarla por sí mismo.
+- `.scratch/<slug>/TASK.md`: expediente, escrito solo por el coach.
+- `.scratch/<slug>/spec.md`: especificación.
+- `.scratch/<slug>/issues/<NN>-<slug>.md`: un archivo por ticket.
+- `.scratch/<slug>/research/<tema>.md`: investigación cuando justifique un artefacto.
+- `.scratch/<slug>/to-questionnaire-<tema>.md`: cuestionario cuando proceda.
+- `GLOSSARY.md` y `docs/adr/` de POEX Coach: vocabulario y decisiones generales, creados de forma perezosa; las decisiones de dominio específicas del repositorio respetan su documentación propietaria. Evita duplicar una decisión entre repositorios: usa referencias.
 
-## Ubicación de documentos
+La creación o modificación de esos archivos, excepto TASK.md por el coach, requiere mostrar el cambio exacto y obtener aprobación. Si falta, la salida del encargo es una propuesta en el chat y la escritura queda pendiente. La configuración de un tracker local no concede permiso para escribir.
 
-Son generales y permanecen en la raíz de POEX Coach:
+Código, pruebas y prototipos viven en los workspaces autorizados. Los handoffs son temporales y enlazan fuentes duraderas. Los informes de revisión se conservan por referencia o mediante un resumen verificable en TASK.md; el retorno no crea automáticamente otro documento.
 
-- `GLOSSARY.md`;
-- `docs/adr/`;
-- `docs/agents/`.
+## Desvíos y apoyos
 
-`GLOSSARY.md` y `docs/adr/` se crean o actualizan de forma perezosa. No se duplican por tarea.
+Usa un encargo específico cuando la necesidad exista: `prototype` para una pregunta ejecutable; `research` para investigación acotada; `to-questionnaire` para conocimiento externo; `diagnosing-bugs` para un defecto difícil. Lee su SKILL.md antes de elegirlo. Sus salidas vuelven al diseño o al criterio que las necesita.
 
-Son específicos de una tarea:
+`$poex-pr-guide` aporta contraste de planificación, revisión o seguimiento cuando hay una necesidad POEX concreta. Aplica su checkpoint humano. En validación, delimita qué contratos o requisitos aún no están cubiertos por la revisión de Matt para evitar repetirla sin aportar evidencia.
 
-```text
-.scratch/<slug>/
-├── TASK.md
-├── spec.md
-├── issues/
-├── research/
-└── to-questionnaire-<tema>.md
-```
-
-`.scratch/` es memoria duradera. No se limpia automáticamente.
-
-El código, las pruebas, los prototipos y los commits permanecen en los repositorios de trabajo. `TASK.md` enlaza sus resultados sin copiarlos completos.
-
-Los archivos producidos por `$mattpocock-skills:handoff` y `$mattpocock-skills:improve-codebase-architecture` son temporales. Facilitan cambios de contexto, pero no sustituyen al expediente, la especificación o los tickets.
-
-## Skills condicionales
-
-- `$mattpocock-skills:diagnosing-bugs`: defectos difíciles, regresiones o causas desconocidas.
-- `$mattpocock-skills:prototype`: responder una pregunta concreta mediante código desechable y una rama `prototype/<nombre>` autorizada.
-- `$mattpocock-skills:wayfinder`: esfuerzos excepcionalmente grandes o poco claros.
-- `$mattpocock-skills:improve-codebase-architecture`: explorar límites y alternativas arquitectónicas.
-- `$mattpocock-skills:wizard`: crear una herramienta repetible después de observar su necesidad.
-- `$mattpocock-skills:triage`: clasificar entradas nuevas, no tickets creados por `$mattpocock-skills:to-tickets`.
-- `$mattpocock-skills:implement-spec`: ejecución paralela aprobada expresamente; no es el recorrido predeterminado.
-- `$mattpocock-skills:teach`: comprobar o consolidar comprensión.
-- `$loop-me`: queda fuera del flujo estable mientras sea experimental.
-
-Antes de ejecutar una skill, el coordinador identifica su objetivo, directorio, archivos afectados, efectos externos, autorización necesaria y evidencia esperada.
-
-Una skill no concede permisos adicionales ni supera una fase por sí sola.
+`implement-spec` es una ruta excepcional que requiere acuerdo explícito sobre agentes, worktrees, integración y permisos. No la actives al disponer simplemente de varios tickets. La ruta ordinaria mantiene un ticket ejecutándose por tarea. Las etiquetas de triaje del plugin describen disponibilidad; los estados de ejecución siguen siendo los canónicos de AGENTS.md.

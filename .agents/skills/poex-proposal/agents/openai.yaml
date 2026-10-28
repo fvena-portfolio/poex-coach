@@ -1,0 +1,4 @@
+interface:
+  display_name: "POEX Proposal"
+  short_description: "Resume la propuesta de un repositorio para el equipo"
+  default_prompt: "Usa $poex-proposal para resumir la solución propuesta para el repositorio indicado, lista para compartir con sus desarrolladores."
