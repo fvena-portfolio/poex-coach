@@ -1,36 +1,33 @@
 ---
 key: POE-<n>
+title: "<título oficial>"
+jira_url: "<URL de Jira>"
 workflow: implementation
-work_state: DISPONIBLE
-current_focus: false
-rigor: ESTÁNDAR
-phase: 1
-phase_status: REVISAR
-step: <paso actual>
-next_action: <siguiente acción física y concreta>
-updated_at: <fecha y hora>
+state: IN_PROGRESS
+assurance_level: PENDING
+current_phase: understand
+current_step: repositories
+started_at: "<fecha y hora ISO 8601 con zona>"
+updated_at: "<fecha y hora ISO 8601 con zona>"
+completed_at: null
+components: []
 ---
 
-# POE-<n>: <título>
+## Resumen
 
-## Objetivo y resultado esperado
+<Objetivo breve de la tarea en lenguaje sencillo.>
 
-## Fuentes oficiales
+## Progreso
 
-## Alcance y exclusiones
-
-## Decisiones, dudas y supuestos
-
-## Repositorios afectados
-
-## Riesgos y dependencias
-
-## Resultados y evidencias
-
-## Bloqueos y seguimientos
-
-## Compromisos
-
-## Duración, fricción y aprendizajes
-
-## Estado actual
+| Fase | Estado | Inicio | Fin |
+|---|---|---|---|
+| `understand` | `IN_PROGRESS` | `<fecha y hora ISO 8601 con zona>` | — |
+| `research` | `PENDING` | — | — |
+| `decide` | `PENDING` | — | — |
+| `specify` | `PENDING` | — | — |
+| `plan` | `PENDING` | — | — |
+| `prepare` | `PENDING` | — | — |
+| `implement` | `PENDING` | — | — |
+| `validate` | `PENDING` | — | — |
+| `deliver` | `PENDING` | — | — |
+| `close` | `PENDING` | — | — |

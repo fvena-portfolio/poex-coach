@@ -1,4 +1,4 @@
-# Fase 9. Implementación incremental
+# Fase 7. Implementación incremental
 
 **Objetivo:** implementar un ticket mediante incrementos observables y comprobables.
 
@@ -8,7 +8,7 @@
 
 1. Leer instrucciones, ticket, especificación, criterios, decisiones, contratos y handoff.
 2. Comprobar repositorio, rama, `HEAD`, estado, upstream, bloqueadores y línea base.
-3. Volver a la fase 8 si el estado material ha cambiado.
+3. Volver a la fase 6 si el estado material ha cambiado.
 4. Ejecutar `$mattpocock-skills:tdd` y coordinar directamente la implementación según los pasos de esta fase.
 5. Trabajar en ciclos:
 
@@ -46,9 +46,10 @@ siguiente comportamiento
 
 **Puerta de salida:**
 
-- `SUPERADO`: los criterios del ticket están implementados, la evidencia es sensible y Francisco puede defender el cambio.
-- `REVISAR`: falta un criterio, una prueba, una comprobación o comprensión.
-- `BLOQUEADO`: una decisión, contrato, acceso o dependencia impide completar el comportamiento.
+- `DONE`: los criterios del ticket están implementados, la evidencia es sensible y Francisco puede defender el cambio.
+- `IN_PROGRESS`: falta un criterio, una prueba, una comprobación o comprensión.
+- `WAITING`: una decisión, aclaración de contrato, acceso o dependencia externa ya se ha solicitado y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta formular, autorizar o dirigir una solicitud imprescindible, o no existe una vía conocida para obtener la decisión, aclaración, acceso o dependencia requerida.
 
-**Siguiente paso:** fase 10 en el mismo contexto.
+**Siguiente paso:** fase 8 en el mismo contexto.
 

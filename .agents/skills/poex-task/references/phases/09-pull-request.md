@@ -1,4 +1,4 @@
-# Fase 11. Pull request, comunicación y feedback
+# Fase 9. Pull request, comunicación y feedback
 
 **Objetivo:** publicar un cambio revisable y procesar sus comprobaciones y feedback hasta integrarlo.
 
@@ -34,11 +34,11 @@
 12. Diferenciar implementado, PR abierto, revisión pendiente, aprobado, integrado y desplegado.
 13. Para actualizar Jira, preparar el elemento, campo, transición o comentario exacto. Francisco lo aplica manualmente.
 14. Consultar CI, comentarios, revisiones, conflictos, base y dependencias.
-15. Mientras se espera, utilizar `EN_ESPERA`, registrar dependencia y permitir otro foco.
+15. Mientras se espera, utilizar `WAITING`, registrar la dependencia y permitir trabajar en otra tarea.
 16. Investigar los fallos de CI antes de reejecutarlos.
 17. Clasificar el feedback y contrastarlo con especificación, estándares y sistema real.
 18. Mostrar las respuestas exactas antes de publicarlas.
-19. Si el feedback exige código, volver por handoff a las fases 9 y 10. Si cambia alcance o decisiones, volver a la fase correspondiente.
+19. Si el feedback exige código, volver por handoff a las fases 7 y 8. Si cambia alcance o decisiones, volver a la fase correspondiente.
 20. Revisar después de cada actualización el diff acumulado, validación y coherencia cross-stack.
 21. Antes del merge, comprobar aprobaciones, CI, conflictos, base, feedback, compatibilidad, migraciones, flags, despliegue y rollback.
 22. No aprobar el propio PR ni ejecutar el merge sin autorización y proceso aplicable.
@@ -51,11 +51,11 @@
 26. Si quedan tickets:
    - seleccionar uno de la frontera;
    - conservar la misma especificación;
-   - volver a la fase 8;
-   - no avanzar a la fase 12.
+   - volver a la fase 6;
+   - no avanzar a la fase 10.
 27. Si cambian los supuestos de tickets pendientes, volver a la fase correspondiente.
 28. Cuando todos estén integrados, comprobar el resultado conjunto contra especificación, criterios, trazabilidad, flujo cross-stack y despliegue.
-29. Preparar y aprobar la actualización de `TASK.md`.
+29. Actualizar `TASK.md` automáticamente después de evaluar el resultado y verificar la escritura.
 
 **Resultado:** ticket integrado o bloqueo externo trazable; estado y comunicación coherentes.
 
@@ -63,12 +63,13 @@
 
 **Puerta de salida:**
 
-- `SUPERADO`: el ticket está integrado y, si era el último, el resultado conjunto está comprobado.
-- `REVISAR`: queda una acción de PR, CI, feedback, comunicación o merge.
-- `BLOQUEADO`: falta acceso, decisión, revisión o dependencia externa.
+- `DONE`: el ticket está integrado y, si era el último, el resultado conjunto está comprobado.
+- `IN_PROGRESS`: queda una acción de PR, CI, feedback, comunicación o merge.
+- `WAITING`: CI, una revisión, una decisión o una dependencia externa ya está solicitada o en curso y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta formular, autorizar o dirigir una solicitud necesaria, falta acceso sin una vía conocida de resolución o no se sabe cómo obtener la decisión, revisión o dependencia requerida.
 
 **Siguiente paso:**
 
-- si quedan tickets, fase 8;
-- si todos están integrados y el resultado conjunto está comprobado, fase 12.
+- si quedan tickets, fase 6;
+- si todos están integrados y el resultado conjunto está comprobado, fase 10.
 

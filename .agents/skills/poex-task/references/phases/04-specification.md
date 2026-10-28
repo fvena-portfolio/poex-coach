@@ -1,8 +1,8 @@
-# Fase 6. Especificación
+# Fase 4. Especificación
 
 **Objetivo:** convertir lo aprendido en una especificación autosuficiente, comprobable y defendible.
 
-**Entrada:** fases 1–5 superadas y decisiones materiales resueltas.
+**Entrada:** fases 1–3 superadas y decisiones materiales resueltas.
 
 **Acciones:**
 
@@ -55,9 +55,10 @@ Estructura mínima:
 
 **Puerta de salida:**
 
-- `SUPERADO`: la especificación es autosuficiente, comprobable y defendible.
-- `REVISAR`: contiene ambigüedades, criterios débiles o contratos inconsistentes.
-- `BLOQUEADO`: falta una decisión o fuente imprescindible.
+- `DONE`: la especificación es autosuficiente, comprobable y defendible.
+- `IN_PROGRESS`: contiene ambigüedades, criterios débiles o contratos inconsistentes.
+- `WAITING`: una decisión o fuente externa ya se ha solicitado y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta formular, autorizar o dirigir una solicitud imprescindible, o no existe una vía conocida para obtener la decisión o fuente requerida.
 
-**Siguiente paso:** fase 7.
+**Siguiente paso:** fase 5.
 

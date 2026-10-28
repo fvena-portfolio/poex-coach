@@ -1,4 +1,4 @@
-# Profundidad proporcional
+# Nivel de garantía proporcional
 
 ## Núcleo mínimo
 
@@ -15,11 +15,11 @@ Toda tarea debe demostrar:
 9. evidencia del resultado;
 10. estado oficial y continuidad conocidos.
 
-Una fase puede ser breve. No puede marcarse `SUPERADO` sin su resultado y evidencia.
+Una fase puede ser breve. No puede marcarse `DONE` sin su resultado y evidencia.
 
 ## Niveles
 
-### `SIMPLE`
+### `BASIC`
 
 Se utiliza cuando el comportamiento es conocido, el cambio es localizado y reversible, existe un patrón claro y no hay migraciones, riesgos materiales de seguridad o datos, contratos cross-stack nuevos ni dependencias externas inciertas.
 
@@ -32,9 +32,9 @@ Aplicación:
 - comprobaciones obligatorias del repositorio;
 - artefactos mínimos.
 
-### `ESTÁNDAR`
+### `STANDARD`
 
-Es el nivel predeterminado cuando la tarea no cumple todas las condiciones de `SIMPLE` ni presenta una señal clara de riesgo elevado.
+Es el nivel predeterminado cuando la tarea no cumple todas las condiciones de `BASIC` ni presenta una señal clara de riesgo elevado.
 
 Se aplica, por ejemplo, cuando existen varios módulos, cambios coordinados pero acotados, casos alternativos relevantes, incertidumbre moderada, varios tickets o coordinación con otra persona.
 
@@ -47,7 +47,7 @@ Aplicación:
 - revisión cross-stack proporcional;
 - validación completa del repositorio.
 
-### `ELEVADO`
+### `HIGH`
 
 Se utiliza cuando aparece al menos una señal material:
 
@@ -83,7 +83,11 @@ Una señal elevada obliga a controlar el riesgo que representa. No obliga a prod
 
 ## Clasificación
 
-La clasificación inicial se realiza en la fase 1 y se registra en `TASK.md`.
+`PENDING` indica que la tarea aún no ha sido clasificada. No es un nivel de garantía y solo puede mantenerse hasta completar la fase 2.
+
+La clasificación inicial se realiza al final de la fase 2, después de investigar el sistema actual y sus riesgos, y se registra en `TASK.md`. Después de la confirmación de Francisco, sustituye `PENDING` por `BASIC`, `STANDARD` o `HIGH`.
+
+`assurance_level` expresa cuánto análisis, validación y evidencia requiere la tarea. No estima esfuerzo ni story points.
 
 El agente:
 
@@ -96,7 +100,7 @@ Los riesgos nuevos pueden elevar el nivel inmediatamente. Reducirlo requiere evi
 
 ## Urgencia
 
-La urgencia puede comprimir explicaciones, reuniones y artefactos. No convierte una tarea de riesgo elevado en una tarea simple.
+La urgencia puede comprimir explicaciones, reuniones y artefactos. No reduce por sí sola una tarea de `HIGH` a `BASIC`.
 
 Siempre deben conservarse:
 
@@ -110,9 +114,3 @@ Siempre deben conservarse:
 - comunicación y seguimiento pendientes.
 
 Toda comprobación aplazada debe registrar qué falta, el riesgo aceptado, quién lo acepta, el responsable y la condición o fecha de seguimiento.
-
-## `NO APLICA`
-
-Una comprobación puede marcarse `NO APLICA` cuando se ha evaluado expresamente, no puede afectar al comportamiento, riesgo o evidencia y existe una justificación breve.
-
-`NO APLICA` no significa que la comprobación se olvidó o no se entendió.

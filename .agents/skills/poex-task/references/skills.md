@@ -8,21 +8,20 @@ Las skills de terceros no se modifican para adaptarlas a POEX Coach. El flujo se
 
 | Fases | Skill | Contexto | Resultado |
 |---|---|---|---|
-| 1–2 | Sin skill obligatoria | POEX Coach | Prioridad y contexto oficial |
-| 3–5 | `$mattpocock-skills:grill-with-docs` | Raíz de POEX Coach | Comprensión, preguntas y decisiones |
-| 3–5 | `$mattpocock-skills:domain-modeling` | Raíz de POEX Coach | `GLOSSARY.md` y `docs/adr/` cuando proceda |
-| 3–5 | `$mattpocock-skills:to-questionnaire` | `.scratch/<slug>/` | `to-questionnaire-<tema>.md` |
-| 4–7 | `$mattpocock-skills:research` | POEX Coach | `.scratch/<slug>/research/<tema>.md` |
-| 4–7 | `$poex-pr-guide`, modo `Task-planning readiness` | POEX Coach y repositorios de trabajo | Preparación, contratos, cobertura, riesgos y validación contrastados |
-| 6 | `$mattpocock-skills:to-spec` | POEX Coach, tracker local | `.scratch/<slug>/spec.md` |
-| 7 | `$mattpocock-skills:to-tickets` | POEX Coach, tracker local | `.scratch/<slug>/issues/<NN>-<slug>.md` |
-| 8 | `$mattpocock-skills:handoff` | Contexto de origen | Archivo temporal del sistema |
-| 9 | `$mattpocock-skills:tdd` | Repositorio de trabajo | Código y pruebas |
-| 10–11 | `$poex-pr-guide`, modos `Full PR review` o `Follow-up revision` | Repositorio o PR | Segunda pasada independiente después de la autorrevisión de Francisco |
-| 11 | `$mattpocock-skills:pr` | Repositorio de trabajo | Cuerpo y publicación autorizada del PR |
-| 12 | `$mattpocock-skills:retro` | POEX Coach y repositorios | Aprendizajes y candidatos de mejora |
+| 1 | Sin skill obligatoria | POEX Coach | Tarea comprendida, recomendaciones sobre Jira presentadas y ramas preparadas |
+| 2–3 | `$mattpocock-skills:domain-modeling` | Raíz de POEX Coach | `GLOSSARY.md` y `docs/adr/` cuando proceda |
+| 3 | `$mattpocock-skills:to-questionnaire` | `.scratch/<slug>/` | `to-questionnaire-<tema>.md` |
+| 2–5 | `$mattpocock-skills:research` | POEX Coach | `.scratch/<slug>/research/<tema>.md` |
+| 2–5 | `$poex-pr-guide`, modo `Task-planning readiness` | POEX Coach y repositorios de trabajo | Preparación, contratos, cobertura, riesgos y validación contrastados |
+| 4 | `$mattpocock-skills:to-spec` | POEX Coach, tracker local | `.scratch/<slug>/spec.md` |
+| 5 | `$mattpocock-skills:to-tickets` | POEX Coach, tracker local | `.scratch/<slug>/issues/<NN>-<slug>.md` |
+| 6 | `$mattpocock-skills:handoff` | Contexto de origen | Archivo temporal del sistema |
+| 7 | `$mattpocock-skills:tdd` | Repositorio de trabajo | Código y pruebas |
+| 8–9 | `$poex-pr-guide`, modos `Full PR review` o `Follow-up revision` | Repositorio o PR | Segunda pasada independiente después de la autorrevisión de Francisco |
+| 9 | `$mattpocock-skills:pr` | Repositorio de trabajo | Cuerpo y publicación autorizada del PR |
+| 10 | `$mattpocock-skills:retro` | POEX Coach y repositorios | Aprendizajes y candidatos de mejora |
 
-La skill `$mattpocock-skills:implement` no forma parte del recorrido estable. Su versión 1.3.1 ejecuta `$mattpocock-skills:code-review` y crea un commit al terminar, acciones que corresponden a la fase 10 y requieren autorizaciones independientes.
+La skill `$mattpocock-skills:implement` no forma parte del recorrido estable. Su versión 1.3.1 ejecuta `$mattpocock-skills:code-review` y crea un commit al terminar, acciones que corresponden a la fase 8 y requieren autorizaciones independientes.
 
 Usa el identificador completo `$mattpocock-skills:<nombre>` tanto al invocar una skill del paquete como al pedir a Francisco que la invoque. La única excepción de este mapa es `$loop-me`, que está instalada fuera del paquete `mattpocock-skills`.
 

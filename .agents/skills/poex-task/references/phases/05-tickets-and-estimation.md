@@ -1,4 +1,4 @@
-# Fase 7. Plan, tickets, validación y estimación
+# Fase 5. Plan, tickets, validación y estimación
 
 **Objetivo:** convertir la especificación en tickets verticales, trazables, ordenados y estimables.
 
@@ -45,9 +45,10 @@ evidencia
 
 **Puerta de salida:**
 
-- `SUPERADO`: los tickets cubren la especificación, sus dependencias son correctas y la estimación tiene fundamento.
-- `REVISAR`: existen cortes incorrectos, criterios sin cobertura, tickets grandes o estimaciones débiles.
-- `BLOQUEADO`: falta una decisión, investigación, prototipo o compromiso externo.
+- `DONE`: los tickets cubren la especificación, sus dependencias son correctas y la estimación tiene fundamento.
+- `IN_PROGRESS`: existen cortes incorrectos, criterios sin cobertura, tickets grandes o estimaciones débiles.
+- `WAITING`: una decisión, un prototipo o un compromiso externo ya se ha solicitado y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta formular, autorizar o dirigir una solicitud necesaria, o no existe una vía conocida para obtener la decisión, investigación, prototipo o compromiso requerido.
 
-**Siguiente paso:** fase 8.
+**Siguiente paso:** fase 6.
 

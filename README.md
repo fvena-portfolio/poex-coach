@@ -28,13 +28,13 @@ POEX Coach externaliza el proceso, el estado y los compromisos. Su objetivo no e
 
 ## Cómo funciona
 
-POEX Coach utiliza archivos Markdown pequeños y duraderos como memoria compartida entre sesiones. El agente parte de las reglas generales, localiza el expediente activo y carga únicamente la fase y el contexto necesarios para la acción actual.
+POEX Coach utiliza archivos Markdown pequeños y duraderos como memoria compartida entre sesiones. El agente parte de las reglas generales, localiza el expediente indicado y carga únicamente la fase y el contexto necesarios para la acción actual.
 
 El proyecto se compone de:
 
 - `AGENTS.md`: núcleo operativo, autorizaciones, fuentes de verdad, continuidad y acceso a repositorios.
 - `COACHING.md`: contrato de acompañamiento, foco, cuestionamiento, comunicación y adaptación personal.
-- `.agents/skills/poex-task/SKILL.md`: entrada al flujo para realizar tareas de desarrollo. Detecta una tarea nueva o activa, reanuda su estado y dirige una sola acción o decisión por turno.
+- `.agents/skills/poex-task/SKILL.md`: entrada al flujo para realizar tareas de desarrollo. Detecta una tarea nueva o un expediente existente, reanuda su estado y dirige una sola acción o decisión por turno.
 - `.agents/skills/poex-task/references/`: fases y reglas especializadas que se cargan sólo cuando corresponden.
 - `.scratch/<slug>/TASK.md`: expediente local de cada tarea. Conserva su estado, decisiones, evidencia, bloqueos, compromisos y siguiente acción.
 
@@ -46,7 +46,7 @@ Este diseño permite cambiar de sesión o agente sin depender del historial del 
 - **Evidencia antes que promesas:** el progreso se demuestra mediante resultados observables y fuentes trazables.
 - **Contexto progresivo:** cada sesión carga sólo la información que necesita para el paso actual.
 - **Una fuente para cada significado:** las reglas, el estado y la documentación tienen propietarios distintos para evitar contradicciones.
-- **Profundidad proporcional:** el rigor se adapta al riesgo y la complejidad sin eliminar las comprobaciones esenciales.
+- **Garantía proporcional:** `assurance_level` adapta el análisis, la validación y la evidencia al riesgo y la complejidad sin estimar el esfuerzo.
 - **Evolución basada en uso real:** sólo se añaden archivos, reglas o automatizaciones cuando resuelven una necesidad observada.
 
 ## Uso
@@ -58,39 +58,41 @@ No hay que instalar dependencias ni ejecutar una aplicación. El proyecto se usa
 1. Abre la sesión en este directorio.
 2. Proporciona la referencia de la tarea y pide comenzar, por ejemplo: `Quiero trabajar en POE-1234`.
 3. El agente activará la skill `poex-task`, consultará las fuentes disponibles y empezará en la fase 1.
-4. Si necesita crear `.scratch/poe-1234/TASK.md`, mostrará antes el contenido y los archivos afectados. El expediente sólo se creará cuando lo apruebes.
+4. Si necesita crear `.scratch/poe-1234/TASK.md`, lo hará automáticamente, verificará el resultado e informará después de forma compacta.
 
 La skill también puede invocarse de forma explícita: `Usa $poex-task para iniciar POE-1234`.
 
 ### Reanudar una tarea
 
-Pide `Continúa la tarea activa`. El agente buscará los expedientes de `.scratch/`, identificará el que tenga `current_focus: true` y mostrará de forma compacta:
+Pide `Continúa POE-1234`. El agente buscará el expediente correspondiente en `.scratch/` y mostrará de forma compacta:
 
-- prioridad oficial o su verificación pendiente;
+- tarea seleccionada;
 - estado registrado y evaluación actual;
 - fase y paso pendientes;
 - siguiente acción concreta.
 
-Si existen varias tareas abiertas pero no hay un foco inequívoco, el agente pedirá una sola decisión antes de continuar.
+Si no indicas una clave y existe un único expediente abierto, el agente lo reanudará. Si existen varios, mostrará su clave, estado, fase y siguiente acción para que elijas cuál continuar. Puede haber varias tareas `IN_PROGRESS`.
 
 ### Trabajar con el flujo
 
-El flujo de realización contiene 12 fases, desde la selección de la tarea hasta su cierre y aprendizaje. Durante el trabajo:
+El flujo de realización contiene 10 fases, desde la comprensión y definición de la tarea hasta el cierre y aprendizaje. Durante el trabajo:
 
 1. El agente carga sólo la fase actual y las referencias condicionales necesarias.
 2. Propone una sola acción, pregunta o decisión verificable.
 3. Francisco ejecuta o autoriza la acción y aporta la evidencia necesaria.
-4. El agente evalúa la puerta de salida como `SUPERADO`, `REVISAR` o `BLOQUEADO`.
-5. Antes de actualizar el expediente, muestra el cambio exacto y solicita aprobación.
-6. Sólo avanza de fase cuando todos sus criterios están superados y el estado aprobado ha quedado registrado.
+4. El agente actualiza el estado usando `PENDING`, `IN_PROGRESS`, `WAITING`, `BLOCKED`, `PAUSED` o `DONE`.
+5. El agente actualiza automáticamente el expediente, verifica la escritura e informa después de forma compacta.
+6. Sólo avanza de fase cuando todos sus criterios están superados y el estado evaluado ha quedado registrado.
 
-El expediente distingue el estado general del trabajo (`DISPONIBLE`, `EN_CURSO`, `EN_ESPERA`, `BLOQUEADA`, `APARCADA` o `CERRADA`) del resultado de la fase actual. Cambiar el foco local no cambia el estado oficial de Jira.
+Tareas, fases y pasos comparten el mismo vocabulario de estado. Una fase sólo avanza desde `DONE`. El estado local no cambia el estado oficial de Jira.
+
+El expediente registra el inicio y fin de la tarea, de cada fase y de cada paso o tarea verificable. También conserva el progreso de cada fase y las reaperturas sin sobrescribir su historia.
 
 ### Autorizaciones y sistemas externos
 
 POEX Coach trabaja en modo de solo lectura por defecto. Consultar fuentes no autoriza a modificarlas.
 
-- Todo cambio dentro de POEX Coach se presenta primero y requiere aprobación.
+- Todo cambio dentro de POEX Coach se presenta primero y requiere aprobación, excepto la creación y actualización automática de `.scratch/*/TASK.md`.
 - Jira permanece en modo de solo lectura; el agente prepara las actualizaciones para que Francisco las aplique manualmente.
 - Modificar repositorios de trabajo, GitHub, Teams u otros sistemas requiere una instrucción explícita para esa acción concreta.
 

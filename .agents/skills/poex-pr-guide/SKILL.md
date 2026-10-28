@@ -24,7 +24,7 @@ For planning, he explains the problem, current and expected behavior, uncertaint
 
 For PR review, he confirms that he read the requirements and complete diff, then explains the resulting behavior, important risks, and tests.
 
-Do not complete missing understanding for him. Mark the assessment `REVISAR` when his explanation is insufficient. Focused factual questions and requested explanations do not require the full checkpoint.
+Do not complete missing understanding for him. Mark the assessment `IN_PROGRESS` when his explanation is insufficient. Focused factual questions and requested explanations do not require the full checkpoint.
 
 The skill provides an independent contrast. Its report is not evidence of Francisco's understanding or authorization to implement, approve, or merge.
 

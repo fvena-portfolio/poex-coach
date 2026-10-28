@@ -7,19 +7,19 @@ Cuando aparece información nueva:
 1. identificar qué resultado previo queda cuestionado;
 2. volver a la primera fase afectada;
 3. conservar la evidencia todavía válida;
-4. marcar como `REVISAR` los resultados afectados;
+4. marcar como `IN_PROGRESS` los resultados afectados;
 5. proponer la siguiente comprobación;
-6. actualizar `TASK.md` únicamente con aprobación.
+6. actualizar `TASK.md` automáticamente y verificar el resultado.
 
 No es necesario reiniciar toda la tarea.
 
 ## Requisito ambiguo o contradictorio
 
-No se implementa una interpretación elegida por el agente. Se registran fuentes y consecuencias y se prepara una pregunta para el propietario. La tarea permanece en `REVISAR` o `BLOQUEADO`.
+No se implementa una interpretación elegida por el agente. Se registran fuentes y consecuencias y se prepara una pregunta para el propietario. La tarea permanece en `IN_PROGRESS` o `BLOCKED`.
 
 ## Cambio de alcance
 
-Si cambia el resultado, criterio, repositorio, riesgo, estimación u orden, Francisco decide si se incorpora, se convierte en otro ticket, se conserva como pendiente o requiere una tarea oficial. Los artefactos afectados vuelven a `REVISAR`.
+Si cambia el resultado, criterio, repositorio, riesgo, estimación u orden, Francisco decide si se incorpora, se convierte en otro ticket, se conserva como pendiente o requiere una tarea oficial. Los artefactos afectados vuelven a `IN_PROGRESS`.
 
 ## Estimación inválida
 
@@ -27,11 +27,11 @@ Se detiene el siguiente incremento, se muestra la nueva evidencia, se prepara la
 
 ## Cambios locales preexistentes
 
-No se descartan, ocultan, mezclan ni modifican. Si no pueden aislarse con seguridad, la tarea queda `BLOQUEADO`.
+No se descartan, ocultan, mezclan ni modifican. Si no pueden aislarse con seguridad, la tarea queda `BLOCKED`.
 
 ## Fallos y evidencia incompleta
 
-Una prueba fallida, comprobación omitida o resultado no reproducible deja la puerta en `REVISAR`. Se distingue entre defecto nuevo, fallo previo, entorno, prueba inestable, dependencia externa y ausencia de evidencia. Para diagnósticos difíciles se utiliza `$mattpocock-skills:diagnosing-bugs`.
+Una prueba fallida, comprobación omitida o resultado no reproducible deja la puerta en `IN_PROGRESS`. Se distingue entre defecto nuevo, fallo previo, entorno, prueba inestable, dependencia externa y ausencia de evidencia. Para diagnósticos difíciles se utiliza `$mattpocock-skills:diagnosing-bugs`.
 
 ## Imposibilidad de reproducir
 

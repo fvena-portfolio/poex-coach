@@ -1,4 +1,4 @@
-# Fase 12. Cierre y aprendizaje
+# Fase 10. Cierre y aprendizaje
 
 **Objetivo:** confirmar la definición de terminado, cerrar compromisos y conservar aprendizajes basados en evidencia.
 
@@ -17,7 +17,7 @@
    - aceptado;
    - cerrado oficialmente.
 4. Comprobar criterios, PR, checks, cross-stack, compatibilidad, migraciones, despliegue, observabilidad, QA, documentación y comunicaciones aplicables.
-5. Si falta una validación, registrar responsable y condición de reanudación y mantener la tarea abierta o `EN_ESPERA`.
+5. Si falta una validación, registrar responsable y condición de reanudación y mantener la tarea `IN_PROGRESS` o `WAITING`.
 6. Si aparece un defecto material, volver a la fase correspondiente.
 7. Cuando proceda, verificar el entorno desplegado mediante versión, pipeline, health checks, smoke tests, comprobación funcional, evidencia visual, logs o confirmación de QA.
 8. No atribuir al código revisado un entorno con otra versión, configuración o flag.
@@ -54,19 +54,19 @@ evidencia final
 22. Distinguir hechos, observaciones, hipótesis, aprendizajes y experimentos.
 23. Inspeccionar el estado local final y proponer cualquier limpieza con comandos y efectos exactos.
 24. No eliminar ramas, worktrees, archivos ni cambios sin autorización.
-25. Preparar la actualización final de `TASK.md`.
-26. Marcar `CERRADA` únicamente cuando la definición de terminado se cumpla, las fuentes sean coherentes, los seguimientos tengan propietario, la evidencia sea reconstruible y Francisco confirme el cierre.
-27. Volver a la fase 1 y solicitar una única decisión sobre el siguiente foco.
+25. Actualizar `TASK.md` automáticamente después de evaluar el resultado y verificar la escritura.
+26. Marcar `DONE` únicamente cuando la definición de terminado se cumpla, las fuentes sean coherentes, los seguimientos tengan propietario, la evidencia sea reconstruible y Francisco confirme el cierre.
 
 **Resultado:** tarea cerrada con evidencia, seguimientos y aprendizaje trazables.
 
-**Evidencia:** criterios, matriz, PR, CI, despliegue, Jira verificado, comunicaciones, retro, métricas, estado local y expediente aprobado.
+**Evidencia:** criterios, matriz, PR, CI, despliegue, Jira verificado, comunicaciones, retro, métricas, estado local y expediente actualizado y verificado.
 
 **Puerta de salida:**
 
-- `SUPERADO`: definición de terminado satisfecha, estado oficial coherente y expediente aprobado.
-- `REVISAR`: falta una comprobación, actualización, comunicación, evidencia o aprobación.
-- `BLOQUEADO`: una validación, despliegue, decisión o dependencia impide demostrar el cierre.
+- `DONE`: definición de terminado satisfecha, estado oficial coherente y expediente actualizado y verificado.
+- `IN_PROGRESS`: falta una comprobación, actualización, comunicación, evidencia o aprobación.
+- `WAITING`: una validación, un despliegue, una decisión o una dependencia externa ya se ha solicitado o está en curso y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta formular, autorizar o dirigir una solicitud necesaria, o no existe una vía conocida para obtener la validación, despliegue, decisión o dependencia requerida.
 
-**Siguiente paso:** fase 1 y selección explícita de foco.
+**Siguiente paso:** flujo terminado. Otra tarea se inicia o reanuda mediante su propia clave.
 

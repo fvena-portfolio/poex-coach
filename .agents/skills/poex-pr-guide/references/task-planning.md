@@ -6,9 +6,9 @@ Read this reference only when assessing work before implementation. Do not load 
 
 Use the canonical POEX Coach states and identify the target gate separately:
 
-- `SUPERADO`: the target gate is satisfied. For `ready to specify`, product behavior and the current system are understood and material decisions are resolved. For `ready to implement`, requirements, scope, contracts, validation, dependencies, and the first increment are sufficiently defined.
-- `REVISAR`: evidence, understanding, alignment, or a material decision is incomplete.
-- `BLOQUEADO`: an external decision, dependency, or inaccessible source prevents progress.
+- `DONE`: the target gate is satisfied. For `ready to specify`, product behavior and the current system are understood and material decisions are resolved. For `ready to implement`, requirements, scope, contracts, validation, dependencies, and the first increment are sufficiently defined.
+- `IN_PROGRESS`: evidence, understanding, alignment, or a material decision is incomplete.
+- `BLOCKED`: an external decision, dependency, or inaccessible source prevents progress.
 
 State the target gate and evidence boundary. Do not infer readiness from the existence of Jira text, a plan, or generated documentation.
 

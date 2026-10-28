@@ -19,7 +19,7 @@ Para iniciar o reanudar una tarea de desarrollo, usa `$poex-task`.
 
 Al comenzar una sesión:
 
-1. Localiza el trabajo activo en los archivos operativos aprobados, si existen.
+1. Localiza el trabajo activo en los archivos operativos existentes, si existen.
 2. Lee su estado, el paso actual y las fuentes necesarias para ese paso.
 3. Carga sólo el contexto que pueda cambiar la acción o decisión presente.
 4. Reconstruye el estado mediante fuentes duraderas; no dependas de chats anteriores.
@@ -53,6 +53,8 @@ Francisco toma las decisiones técnicas, de producto y de comunicación. Present
 
 Antes de modificar cualquier archivo de POEX Coach, muestra el cambio exacto y obtén su aprobación.
 
+La única excepción son los archivos `.scratch/*/TASK.md`. El agente puede crearlos y actualizarlos automáticamente para registrar hechos comprobados, decisiones ya tomadas, evidencia, estados y continuidad. Verifica cada escritura e informa después de forma compacta. Esta excepción no autoriza al agente a tomar decisiones técnicas, de producto o de comunicación, ni a modificar otros archivos o sistemas.
+
 Las acciones que comuniquen, publiquen o modifiquen información fuera de POEX Coach requieren una instrucción explícita. Esto incluye enviar mensajes, actualizar Jira, modificar GitHub o Teams, aprobar pull requests y ejecutar commits, pushes o publicaciones.
 
 Una autorización se limita a la acción y al alcance aprobados. No la extiendas a acciones posteriores o relacionadas.
@@ -61,13 +63,16 @@ Una autorización se limita a la acción y al alcance aprobados. No la extiendas
 
 No consideres terminado un resultado por una intención, una promesa o una sensación de avance. Compáralo con criterios explícitos y evidencia trazable.
 
-Asigna uno de estos estados:
+Usa el mismo vocabulario de estado para tareas, fases, pasos y unidades de trabajo:
 
-- `SUPERADO`: los criterios están satisfechos y existe evidencia suficiente.
-- `REVISAR`: el resultado o la evidencia son insuficientes; identifica la siguiente corrección o comprobación.
-- `BLOQUEADO`: falta una decisión, dependencia, acceso o información necesaria; identifica la causa y cómo desbloquearla.
+- `PENDING`: el trabajo está registrado y todavía no ha comenzado.
+- `IN_PROGRESS`: el trabajo está activo o todavía requiere correcciones o comprobaciones.
+- `WAITING`: el siguiente evento depende de otra persona o sistema y están identificados el responsable y la condición de reanudación.
+- `BLOCKED`: falta una decisión, dependencia, acceso o información necesaria; identifica la causa y cómo desbloquearla.
+- `PAUSED`: Francisco ha suspendido el trabajo conscientemente y existe una condición de reanudación.
+- `DONE`: todos los criterios están satisfechos y existe evidencia suficiente.
 
-No avances desde `REVISAR` o `BLOQUEADO` sin resolver la condición pendiente o registrar una decisión consciente que cambie el recorrido.
+Avanza a la siguiente fase únicamente desde `DONE`. Cualquier otro estado conserva la fase actual hasta que se resuelva su condición o se registre una decisión consciente que cambie el recorrido.
 
 Conserva la procedencia de la evidencia mediante enlaces o referencias. Evita copiar contenido oficial cuando pueda quedar desactualizado.
 
@@ -117,7 +122,7 @@ Distingue la información comprobada de las observaciones e hipótesis. Mantén 
 
 Indica siempre el siguiente paso. Si el trabajo continuará con otro agente, proporciona además un prompt listo para copiar que identifique el objetivo, el archivo operativo que debe leer, el punto exacto de reanudación y la primera acción esperada. Apunta a las fuentes duraderas sin duplicar su contenido.
 
-Si todavía no existe un archivo aprobado donde conservar el estado, entrega el resumen y el prompt de continuidad en el chat sin crear una estructura nueva.
+Si todavía no existe un archivo operativo aplicable donde conservar el estado, entrega el resumen y el prompt de continuidad en el chat sin crear una estructura nueva.
 
 ## Agent skills
 
