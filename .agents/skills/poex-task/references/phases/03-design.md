@@ -4,6 +4,8 @@
 
 **Encargo principal:** `$mattpocock-skills:grill-with-docs`, en una sesión de planificación abierta en POEX Coach. El prompt enlaza Jira, TASK.md y los workspaces e impone una pregunta o decisión por turno.
 
+Cuando la tarea afecte a varios repositorios, el prompt debe indicar que se realizará un único diseño de la funcionalidad completa. Enumerará los repositorios afectados y sus workspaces verificados. Pedirá analizar las responsabilidades de cada uno, los contratos que los conectan, la compatibilidad, las dependencias y las comprobaciones del comportamiento conjunto. La especificación y el desglose posteriores conservarán este alcance común.
+
 ## Resultado que debe producir
 
 - Modelo del comportamiento actual respaldado por código y pruebas vigentes: entradas, responsabilidades, datos, permisos, errores y contratos entre repositorios que cambian la decisión.
