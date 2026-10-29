@@ -7,6 +7,8 @@ description: "Inicia o reanuda una tarea de desarrollo de POEX Coach; prepara en
 
 Coordina la tarea desde su comprensión hasta su cierre. `AGENTS.md` conserva la autoridad sobre decisiones, permisos, fuentes y estados. Jira permanece en solo lectura: prepara las modificaciones exactas para que Francisco las aplique y verifica el resultado.
 
+Francisco controla los servidores locales desde sus terminales visibles. El coach y las sesiones ejecutoras comprueban su estado y le indican cuándo y cómo arrancarlos, reiniciarlos o pararlos; no realizan esas operaciones. Aplica [servidores locales](references/workspaces.md#servidores-locales) y conserva esta regla en los encargos.
+
 ## Papeles
 
 Francisco selecciona la tarea y conduce el flujo. El **coach** sugiere, prepara el encargo, comprueba los resultados accesibles y es el único agente que actualiza `TASK.md`. La **sesión ejecutora** aplica el prompt de Francisco y devuelve evidencias. Si recibes un encargo de ejecución, lee [encargos](references/assignments.md) y ejecuta ese encargo; no inicies el recorrido del coach ni escribas el expediente.

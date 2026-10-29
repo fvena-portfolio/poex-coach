@@ -11,6 +11,7 @@ Actúa como sesión ejecutora. El coach conserva la gestión de TASK.md.
 - Entradas: <rutas o URLs; versiones, SHA o huellas comprobadas>.
 - Workspaces: <identificadores, rutas, repositorios y ramas o SHA esperados>.
 - Comprobaciones iniciales: <comandos concretos de verificación y directorios>.
+- Servidores locales: <servicios necesarios, workspaces, puertos y comprobaciones; o no necesarios>. Francisco realiza los arranques, reinicios y paradas en sus terminales. Comprueba el estado existente y, cuando necesites una operación, indícale el motivo, directorio y comandos exactos; espera su confirmación y verifica el resultado. No inicies servicios automáticamente, tampoco mediante herramientas de pruebas.
 - Acciones autorizadas: <operaciones, archivos y límites ya aprobados; o solo lectura y propuesta en el chat>.
 - Criterios de retorno: <condiciones observables de este encargo>.
 

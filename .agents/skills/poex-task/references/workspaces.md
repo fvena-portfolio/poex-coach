@@ -15,6 +15,46 @@ Un workspace asigna una tarea, un repositorio y un uso a un directorio verificab
 
 La fase `initialize` prepara la identidad y conoce cómo validar; `understand` permite consultas puntuales en solo lectura para comprender la tarea. La línea base de comprobaciones pertinentes se ejecuta antes de modificar código, en el workspace de implementación. Registra SHA, estado local, entorno, comandos y resultados; separa fallos previos y carencias de entorno. No atribuyas una prueba al último SHA si se ejecutó sobre otro contenido.
 
+## Servidores locales
+
+Francisco ejecuta el arranque, reinicio y parada de backend, frontend y sus servicios auxiliares en terminales visibles. Esta regla se aplica al coach y a las sesiones ejecutoras, también cuando una herramienta de pruebas pueda iniciar servicios automáticamente.
+
+### Entorno único y lanzamiento con poex-dev
+
+Francisco ha elegido un único entorno local activo. Los worktrees comparten PostgreSQL y Redis mediante el proyecto Docker `pe-local-noecr`. Cambiar de worktree requiere comprobar qué código se ejecuta y reconstruir el backend cuando corresponda. Conservar los volúmenes no impide que las migraciones modifiquen los datos.
+
+El lanzador personal está en `/home/franciscovenagualda/.local/bin/poex-dev`. Consulta su ayuda y comprueba las rutas antes de proporcionar comandos.
+
+El lanzador admite:
+
+- `--backend-dir RUTA` y `--frontend-dir RUTA`: rutas absolutas de los worktrees verificados.
+- `--name NOMBRE`: identificación de tarea en los títulos y color estable por tarea.
+- `--only backend|frontend|backoffice`: selección del servicio.
+- `--dry-run`: mostrar las operaciones sin abrir pestañas ni iniciar servicios.
+- `--rebuild`: reconstruir el backend conservando sus volúmenes.
+- Mantener `--new` reservado al restablecimiento explícito de datos.
+
+La selección del backend se guarda después de un arranque correcto en `${XDG_STATE_HOME:-~/.local/state}/poex-dev/active.json`. `.bashrc` carga `~/.local/lib/poex-dev/backend.sh` después de las funciones POEX. Ese auxiliar actualiza la raíz y el archivo Compose antes de cada operación. Antes de cambiar de worktree, Francisco detiene el backend anterior con `stop-backend`; después usa `--run --rebuild`. El lanzador rechaza el arranque de frontend o backoffice si su puerto está ocupado.
+
+El coach proporciona el comando completo para que Francisco lo ejecute. Las pestañas visibles no acreditan por sí solas que los servicios estén disponibles ni que ejecuten el worktree esperado.
+
+### Cuándo solicitarlos
+
+- En `initialize`, paso `verification`, identifica los servicios necesarios, sus dependencias, comandos, rutas y puertos desde las instrucciones y configuración del workspace. Prepararlos no exige arrancarlos.
+- Solicita el arranque justo antes de la primera comprobación que lo necesite: normalmente en `implement`, antes de la línea base o de una prueba que requiera servicios. En `design`, solicítalo antes solo si hace falta reproducir o explorar el comportamiento.
+- En `validate`, comprueba y reutiliza las instancias adecuadas. Pide únicamente los servicios que falten para la comprobación pendiente.
+- Al pausar, cerrar o cambiar de workspace, informa de los servicios que siguen activos y recomienda cuáles puede parar Francisco, según sus dependencias y el trabajo pendiente.
+
+### Comprobar y solicitar una operación
+
+1. Antes de solicitar un arranque o reutilizar una instancia, comprueba en solo lectura el puerto, el proceso y su directorio de ejecución, además de una señal de disponibilidad pertinente. Un puerto abierto no acredita que se esté ejecutando el workspace correcto. Si no puedes verificarlo, declara el límite y solicita a Francisco la información necesaria.
+2. Si hay un conflicto de puerto o una instancia de otro workspace, explica la discrepancia. No arranques otra instancia ni cambies de puerto como recuperación automática.
+3. Indica una sola acción concreta: servicio, motivo, terminal o directorio absoluto, comando exacto, dependencias y señal esperada de éxito. Obtén los comandos del repositorio; no inventes scripts, perfiles ni valores de configuración. Comprueba cómo se detiene cada servicio. En las funciones actuales del backend, `Ctrl+C` solo cierra los logs; `stop-backend` detiene los contenedores. Para otros procesos iniciados en primer plano, indica `Ctrl+C` cuando corresponda.
+4. Espera a que Francisco confirme la operación. Después, comprueba el resultado antes de continuar con las acciones dependientes. Puede continuar el trabajo independiente.
+5. Solicita un reinicio cuando un cambio o fallo lo requiera; aprovecha la recarga automática cuando sea suficiente. Para reiniciar, indica la parada y el arranque en orden. El agente no ejecuta estas operaciones ni termina procesos para liberar puertos.
+
+Conserva en `TASK.md`, dentro de los resultados del workspace, las rutas, comandos y puertos necesarios para continuar, junto con la última comprobación y su fecha. Al reanudar, vuelve a comprobar el estado: el registro anterior no demuestra que un servicio siga activo.
+
 ## Registro en TASK.md
 
 `workspaces` es una lista. Cada entrada contiene:
